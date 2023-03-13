@@ -5,24 +5,70 @@ import CardContent from "@mui/material/CardContent";
 import CardMedia from "@mui/material/CardMedia";
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
+import { useSlotProps } from "@mui/base";
+import List from "@mui/material/List";
+import ListItem from "@mui/material/ListItem";
+import ListItemText from "@mui/material/ListItemText";
+import { TextField } from "@mui/material";
 
-export default function MediaCard() {
+export default function MediaCard({
+  name,
+  image,
+  summary,
+  rating,
+  genres,
+  runtime,
+  premiered,
+  url,
+}) {
+  // const tvShowArray = Object.values(tvShow);
+
+  const [dense, setDense] = React.useState(false);
+  const [secondary, setSecondary] = React.useState(false);
+
   return (
-    <Card sx={{ maxWidth: 345 }}>
-      <CardMedia
-        sx={{ height: 140 }}
-        image="https://images.unsplash.com/photo-1615798763618-183906cd14b2?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2531&q=80"
-        title="yellow lizard"
-      />
+    <Card sx={{ maxWidth: 445 }}>
+      <CardMedia sx={{ height: 350 }} image={image} title="yellow lizard" />
       <CardContent>
         <Typography gutterBottom variant="h5" component="div">
-          Lizard
+          {name}
         </Typography>
         <Typography variant="body2" color="text.secondary">
-          Lizards are a widespread group of squamate reptiles, with over 6,000
-          species, ranging across all continents except Antarctica
+          {summary}
         </Typography>
       </CardContent>
+      <List dense={dense}>
+        <ListItem>
+          <ListItemText
+            primary={`Rating: ${rating}`}
+            secondary={secondary ? "Secondary text" : null}
+          />
+        </ListItem>
+        <ListItem>
+          <ListItemText
+            primary={`Genres: ${genres}`}
+            secondary={secondary ? "Secondary text" : null}
+          />
+        </ListItem>
+        <ListItem>
+          <ListItemText
+            primary={`Runtime: ${runtime}`}
+            secondary={secondary ? "Secondary text" : null}
+          />
+        </ListItem>
+        <ListItem>
+          <ListItemText
+            primary={`Premiered: ${premiered}`}
+            secondary={secondary ? "Secondary text" : null}
+          />
+        </ListItem>
+        <ListItem>
+          <ListItemText
+            primary={`Url: ${url}`}
+            secondary={secondary ? "Secondary text" : null}
+          />
+        </ListItem>
+      </List>
       <CardActions>
         <Button
           size="small"
