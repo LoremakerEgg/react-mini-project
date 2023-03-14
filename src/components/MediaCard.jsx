@@ -1,15 +1,15 @@
 import * as React from "react";
 import Card from "@mui/material/Card";
-import CardActions from "@mui/material/CardActions";
 import CardContent from "@mui/material/CardContent";
 import CardMedia from "@mui/material/CardMedia";
-import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
-import { useSlotProps } from "@mui/base";
 import List from "@mui/material/List";
 import ListItem from "@mui/material/ListItem";
 import ListItemText from "@mui/material/ListItemText";
-import { TextField } from "@mui/material";
+import Link from "@mui/material/Link";
+import Rating from "@mui/material/Rating";
+
+import { useEffect } from "react";
 
 export default function MediaCard({
   name,
@@ -21,68 +21,74 @@ export default function MediaCard({
   premiered,
   url,
 }) {
-  // const tvShowArray = Object.values(tvShow);
-
   const [dense, setDense] = React.useState(false);
   const [secondary, setSecondary] = React.useState(false);
 
+  const [value, setValue] = React.useState(0);
+  useEffect(() => {
+    setValue(rating / 2);
+  });
+  const showRating = () => {
+    if (rating) {
+      return (
+        <ListItem>
+          <Typography component="legend">Rating</Typography>
+          <Rating name="read-only" value={value} readOnly precision={0.5} />
+        </ListItem>
+      );
+    } else
+      return (
+        <ListItem>
+          <ListItemText
+            primary={`No rating found`}
+            secondary={secondary ? "Secondary text" : null}
+          />
+        </ListItem>
+      );
+  };
+
   return (
-    <Card sx={{ maxWidth: 445 }}>
-      <CardMedia sx={{ height: 350 }} image={image} title="yellow lizard" />
+    <Card sx={{ maxWidth: 445 }} className={"card"}>
+      <CardMedia sx={{ height: 350 }} image={image} title="tv show" />
       <CardContent>
         <Typography gutterBottom variant="h5" component="div">
           {name}
         </Typography>
-        <Typography variant="body2" color="text.secondary">
-          {summary}
-        </Typography>
+        <Typography variant="body2">{summary}</Typography>
       </CardContent>
       <List dense={dense}>
+        {showRating()}
         <ListItem>
           <ListItemText
-            primary={`Rating: ${rating}`}
+            primary={
+              genres.length === 0 ? "No genres found!" : `Genres: ${genres}`
+            }
             secondary={secondary ? "Secondary text" : null}
           />
         </ListItem>
         <ListItem>
           <ListItemText
-            primary={`Genres: ${genres}`}
+            primary={
+              runtime ? `Runtime: ${runtime} minutes` : "No runtime found!"
+            }
             secondary={secondary ? "Secondary text" : null}
           />
         </ListItem>
         <ListItem>
           <ListItemText
-            primary={`Runtime: ${runtime}`}
+            primary={
+              premiered ? `Premiered: ${premiered}` : "No premiere date found!"
+            }
             secondary={secondary ? "Secondary text" : null}
           />
         </ListItem>
         <ListItem>
           <ListItemText
-            primary={`Premiered: ${premiered}`}
-            secondary={secondary ? "Secondary text" : null}
-          />
-        </ListItem>
-        <ListItem>
-          <ListItemText
-            primary={`Url: ${url}`}
+            primary={<Link href={url}>Link to {name}</Link>}
             secondary={secondary ? "Secondary text" : null}
           />
         </ListItem>
       </List>
-      <CardActions>
-        <Button
-          size="small"
-          onClick={() => console.log("Click on share button ")}
-        >
-          Share
-        </Button>
-        <Button
-          size="small"
-          onClick={() => console.log("Click on Learn more button ")}
-        >
-          Learn More
-        </Button>
-      </CardActions>
     </Card>
   );
 }

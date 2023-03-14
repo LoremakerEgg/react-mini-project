@@ -3,6 +3,8 @@ import MediaCard from "./components/MediaCard";
 import { TextField } from "@mui/material";
 import Button from "@mui/material/Button";
 import { Container } from "@mui/system";
+import "./app.css";
+
 function App() {
   const [url, setUrl] = useState(
     "https://api.tvmaze.com/singlesearch/shows?q=suits"
@@ -18,7 +20,6 @@ function App() {
     premiered: "",
     url: "",
   });
-  console.log(tvShows);
 
   const handleSearch = (event) => {
     setQuery(event.target.value);
@@ -52,16 +53,18 @@ function App() {
   return (
     <Container maxWidth="sm">
       <div className="App">
-        <TextField
-          id="outlined-basic"
-          label="Search"
-          variant="outlined"
-          value={query}
-          onChange={handleSearch}
-        />
-        <Button size="large" onClick={onSearch}>
-          Click on me!
-        </Button>
+        <div className="searchDiv">
+          <TextField
+            className="search"
+            label="Search series.."
+            variant="outlined"
+            value={query}
+            onChange={handleSearch}
+          />
+          <button className="hello" onClick={onSearch}>
+            Search
+          </button>
+        </div>
         <MediaCard
           image={tvShows.image}
           name={tvShows.name}

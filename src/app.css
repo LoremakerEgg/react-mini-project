@@ -1,0 +1,26 @@
+body {
+  background-color: #26282b;
+}
+.card {
+  background-color: #353941;
+  color: #f0f5f9;
+}
+.button {
+  color: #e50914;
+}
+.searchDiv {
+  display: flex;
+  gap: 1rem;
+  margin-bottom: 1rem;
+  align-items: center;
+  width: 440px;
+  justify-content: center;
+}
+.search {
+  background-color: white;
+  color: white;
+}
+.hello {
+  width: 100px;
+  height: 50px;
+}
